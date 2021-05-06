@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      API_PATH: https://hfx-api.herokuapp.com
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+    - run: printf "API_PATH=$API_PATH\n" > .env 
+    - run: npm ci
+    - run: npm run build
+
+    - name: Deploy
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: ftp.stevebunting.com
+        username: hfx-github-actions
+        password: ${{ secrets.ftp_password }}
+        local-dir: ./dist/
