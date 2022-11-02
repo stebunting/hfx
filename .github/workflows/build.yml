@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      API_PATH: https://hfx-api.herokuapp.com
+      API_PATH: https://hfx-api.onrender.com
     
     steps:
     - uses: actions/checkout@v2
