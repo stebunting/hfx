@@ -59,7 +59,6 @@ module.exports = {
   },
   devServer: {
     port: 3000,
-    stats: 'minimal',
   },
   plugins: [
     new HtmlWebpackPlugin({
