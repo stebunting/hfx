@@ -2,7 +2,10 @@ name: Build
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
 
 jobs:
   build:
@@ -12,19 +15,53 @@ jobs:
       API_PATH: https://hfx-api.onrender.com
     
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
     - name: Use Node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v4
       with:
         node-version: '20.x'
-    - run: printf "API_PATH=$API_PATH\n" > .env 
-    - run: npm ci
-    - run: npm run build
+
+    - name: Make Env File
+      run: printf "API_PATH=$API_PATH\n" > .env 
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Build
+      run: npm run build
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-artifacts
+        path: dist
+        retention-days: 7
+  
+  deploy:
+    name: Deploy
+
+    needs: build
+    
+    if: github.ref == 'refs/heads/production'
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: build-artifacts
+        path: dist
+
+    - run: ls dist
 
     - name: Deploy
-      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
       with:
-        server: ftp.stevebunting.com
+        server: stevebunting.com
         username: hfx-github-actions
-        password: ${{ secrets.ftp_password }}
-        local-dir: ./dist/
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+        local_path: ./dist/
+        remote_path: /subdomains/hfx/httpdocs/
