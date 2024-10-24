@@ -1,4 +1,4 @@
-import { Currency, Rate } from 'src/types/api';
+import { Currency, Rate } from 'src/typings/api';
 import { formatDate } from './format';
 
 export async function getCurrencies(): Promise<Array<Currency>> {

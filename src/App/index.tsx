@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import RateTable from 'src/components/RateTable';
 import Form, { FormData } from 'src/components/Form';
 import { getCurrencies, getRate } from 'src/lib/api';
-import { Currency, Rate } from 'src/types/api';
+import { Currency, Rate } from 'src/typings/api';
 
 import './style.less';
 import s from './style.module.less';

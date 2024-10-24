@@ -17,6 +17,7 @@ function CopyIcon(props: Props): React.ReactElement {
       <button
         className={s.icon}
         type="button"
+        aria-label="Copy"
       >
         <FontAwesomeIcon
           icon={faCopy}

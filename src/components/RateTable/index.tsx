@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatCurrency, formatDate, formatExchangeRate } from 'src/lib/format';
-import { Rate } from 'src/types/api';
+import { Rate } from 'src/typings/api';
 
 import s from './style.module.less';
 import CopyIcon from '../Copy Icon';

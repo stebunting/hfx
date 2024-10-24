@@ -1,7 +1,7 @@
 import React from 'react';
 import DateInput from 'src/components/DateInput';
 import CurrencySelector from 'src/components/CurrencySelector';
-import { Currency } from 'src/types/api';
+import { Currency } from 'src/typings/api';
 
 import s from './style.module.less';
 import AmountInput from '../AmountInput';
