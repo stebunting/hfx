@@ -12,7 +12,6 @@ function App(): React.ReactElement {
     from: '',
     to: '',
     symbolFrom: '',
-    symbolTo: '',
   });
 
   const endDate = new Date();
@@ -80,7 +79,6 @@ function App(): React.ReactElement {
       from: form.currencyFrom,
       to: form.currencyTo,
       symbolFrom: getSymbol(form.currencyFrom),
-      symbolTo: getSymbol(form.currencyTo),
     });
     for (let d = new Date(form.startDate); d <= form.endDate; d.setDate(d.getDate() + 1)) {
       getRate(d, form.currencyFrom, form.currencyTo)
@@ -114,7 +112,6 @@ function App(): React.ReactElement {
         to={fixed.to}
         amount={form.amount}
         fromSymbol={fixed.symbolFrom}
-        toSymbol={fixed.symbolTo}
       />
     </div>
   );

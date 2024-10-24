@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatDate } from 'src/lib/format';
+import { formatCurrency, formatDate, formatExchangeRate } from 'src/lib/format';
 import { Rate } from 'src/types/api';
 
 import s from './style.module.less';
@@ -11,7 +11,6 @@ interface Props {
   to: string,
   amount: number,
   fromSymbol: string,
-  toSymbol: string,
 }
 
 function RateTable(props: Props): React.ReactElement {
@@ -21,7 +20,6 @@ function RateTable(props: Props): React.ReactElement {
     to,
     amount,
     fromSymbol,
-    toSymbol,
   } = props;
 
   return (
@@ -45,7 +43,7 @@ function RateTable(props: Props): React.ReactElement {
           {rates.map((r) => {
             const { date, rate } = r;
             const invRate = 1 / rate;
-            const conversion = (rate * amount).toFixed(2);
+            const conversion = formatCurrency(rate * amount, to);
 
             return (
               <tr key={date.toString()}>
@@ -53,17 +51,15 @@ function RateTable(props: Props): React.ReactElement {
                   {formatDate(new Date(date))}
                 </td>
                 <td className={s.cell}>
-                  {rate.toFixed(6)}
-                  <CopyIcon text={rate.toString()} />
+                  {formatExchangeRate(rate, 6)}
+                  <CopyIcon text={formatExchangeRate(rate)} />
                 </td>
                 <td className={s.cell}>
-                  {(invRate).toFixed(6)}
-                  <CopyIcon text={invRate.toString()} />
+                  {formatExchangeRate(invRate, 6)}
+                  <CopyIcon text={formatExchangeRate(invRate)} />
                 </td>
                 <td className={s.cell}>
                   {conversion}
-                  {' '}
-                  {toSymbol}
                   <CopyIcon text={conversion} />
                 </td>
               </tr>
