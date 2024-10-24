@@ -3,16 +3,18 @@ import React from 'react';
 import s from './style.module.less';
 
 interface Props {
-  label: string,
+  symbol: string,
   name: string,
+  disabled: boolean,
   value: string,
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
 function AmountInput(props: Props): React.ReactElement {
   const {
-    label,
+    symbol,
     name,
+    disabled,
     value,
     handleChange,
   } = props;
@@ -25,12 +27,14 @@ function AmountInput(props: Props): React.ReactElement {
         className={s.label}
         htmlFor={name}
       >
-        {label}
+        Amount
+        {symbol !== '' && ` /${symbol}`}
         <input
           className={s.amountInput}
           type="text"
           name={name}
           id={name}
+          disabled={disabled}
           value={value}
           onChange={handleChange}
         />

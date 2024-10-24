@@ -7,6 +7,7 @@ import s from './style.module.less';
 interface Props {
   label: string,
   name: string,
+  disabled: boolean,
   value: Date | null,
   handleChange: (date: Date | null) => void,
 }
@@ -15,6 +16,7 @@ function DateInput(props: Props): React.ReactElement {
   const {
     label,
     name,
+    disabled,
     value,
     handleChange
   } = props;
@@ -35,6 +37,7 @@ function DateInput(props: Props): React.ReactElement {
           id={name}
           selected={value}
           dateFormat="yyyy-MM-dd"
+          disabled={disabled}
           maxDate={maxDate}
           onChange={handleChange}
         />

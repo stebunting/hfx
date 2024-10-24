@@ -32,8 +32,12 @@ function DateInput(props: Props): React.ReactElement {
           id={name}
           name={name}
           value={value}
+          disabled={currencies.length === 0}
           onChange={handleChange}
         >
+          <option value="" hidden>
+            No currencies available
+          </option>
           {currencies.map((currency) => (
             <option
               key={currency.code}

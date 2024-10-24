@@ -35,18 +35,22 @@ function Form(props: Props): React.ReactElement {
     handleCurrencySwap,
   } = props;
 
+  const disabled = currencies.length === 0;
+
   return (
     <div className={s.form}>
       <form onSubmit={handleSubmit}>
         <DateInput
           label="Start Date"
           name="startDate"
+          disabled={disabled}
           value={values.startDate}
           handleChange={(date) => handleDateChange('startDate', date)}
         />
         <DateInput
           label="End Date"
           name="endDate"
+          disabled={disabled}
           value={values.endDate}
           handleChange={(date) => handleDateChange('endDate', date)}
         />
@@ -65,20 +69,23 @@ function Form(props: Props): React.ReactElement {
           handleChange={handleChange}
         />
         <AmountInput
-          label={`Amount /${symbol}`}
+          symbol={symbol}
           name="amount"
+          disabled={disabled}
           value={values.amount.toString()}
           handleChange={handleChange}
         />
         <button
           className={s.button}
           type="submit"
+          disabled={disabled}
         >
           Submit
         </button>
         <button
           className={s.button}
           type="button"
+          disabled={disabled}
           onClick={handleCurrencySwap}
         >
           Reverse

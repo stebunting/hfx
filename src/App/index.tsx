@@ -37,12 +37,11 @@ function App(): React.ReactElement {
 
   const getSymbol = (code: string) => {
     const c = currencies.find((currency) => currency.code === code);
-    if (c && c.symbol) {
-      return c.symbol.split(',').reduce((a, b) => (
+    return (c && c.symbol)
+      ? c.symbol.split(',').reduce((a, b) => (
         a + String.fromCharCode(parseInt(b, 16))
-      ), '');
-    }
-    return String.fromCharCode(164);
+      ), '')
+      : '';
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
@@ -92,7 +91,7 @@ function App(): React.ReactElement {
                 a.date.valueOf() - b.date.valueOf()
               ))));
           }
-        }).catch((error) => {
+        }).catch(() => {
           // HANDLE ERROR
         });
     }
