@@ -1,5 +1,7 @@
 declare namespace StyleModuleLessNamespace {
   export interface IStyleModuleLess {
+    copied: string;
+    error: string;
     icon: string;
   }
 }
