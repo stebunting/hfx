@@ -1,26 +1,20 @@
-import React from 'react';
-import { formatCurrency, formatDate, formatExchangeRate } from 'src/lib/format';
-import { Rate } from 'src/typings/api';
+import React from "react";
+import { formatCurrency, formatDate, formatExchangeRate } from "src/lib/format";
+import { Rate } from "src/typings/api";
 
-import s from './style.module.less';
-import CopyIcon from '../Copy Icon';
+import s from "./style.module.less";
+import CopyIcon from "../Copy Icon";
 
 interface Props {
-  rates: Array<Rate>,
-  from: string,
-  to: string,
-  amount: number,
-  fromSymbol: string,
+  rates: Array<Rate>;
+  from: string;
+  to: string;
+  amount: number;
+  fromSymbol: string;
 }
 
 function RateTable(props: Props): React.ReactElement {
-  const {
-    rates,
-    from,
-    to,
-    amount,
-    fromSymbol,
-  } = props;
+  const { rates, from, to, amount, fromSymbol } = props;
 
   return (
     <div className={s.rateTableContainer}>
@@ -29,13 +23,15 @@ function RateTable(props: Props): React.ReactElement {
           <tr>
             <th className={s.headerCell}>Date</th>
             <th className={s.headerCell}>
-              {from === '' || to === '' ? 'Rate' : `${from}/${to}`}
+              {from === "" || to === "" ? "Rate" : `${from}/${to}`}
             </th>
             <th className={s.headerCell}>
-              {from === '' || to === '' ? 'Inv. Rate' : `${to}/${from}`}
+              {from === "" || to === "" ? "Inv. Rate" : `${to}/${from}`}
             </th>
             <th className={s.headerCell}>
-              {from === '' || to === '' ? 'Conversion' : `${amount} ${fromSymbol}`}
+              {from === "" || to === ""
+                ? "Conversion"
+                : `${amount} ${fromSymbol}`}
             </th>
           </tr>
         </thead>
@@ -47,9 +43,7 @@ function RateTable(props: Props): React.ReactElement {
 
             return (
               <tr key={date.toString()}>
-                <td className={s.cell}>
-                  {formatDate(new Date(date))}
-                </td>
+                <td className={s.cell}>{formatDate(new Date(date))}</td>
                 <td className={s.cell}>
                   {formatExchangeRate(rate, 6)}
                   <CopyIcon text={formatExchangeRate(rate)} />

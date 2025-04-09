@@ -1,70 +1,63 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const DotenvWebpackPlugin = require('dotenv-webpack');
-require('dotenv').config();
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const DotenvWebpackPlugin = require("dotenv-webpack");
+require("dotenv").config();
 
 module.exports = {
-  entry: './src/index.tsx',
+  entry: "./src/index.tsx",
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: [
           {
-            loader: 'ts-loader',
+            loader: "ts-loader",
             options: {
               transpileOnly: true,
             },
           },
         ],
-      }, {
+      },
+      {
         test: /\.less$/,
         use: [
           MiniCssExtractPlugin.loader,
-          '@teamsupercell/typings-for-css-modules-loader',
+          "@teamsupercell/typings-for-css-modules-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               sourceMap: true,
               modules: {
-                namedExport: false
-              }
-            }
+                namedExport: false,
+              },
+            },
           },
-          'less-loader'
+          "less-loader",
         ],
-        include: /\.module\.less$/
-      }, {
+        include: /\.module\.less$/,
+      },
+      {
         test: /\.less$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'less-loader'
-        ],
-        exclude: /\.module\.less$/
-      }, {
+        use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"],
+        exclude: /\.module\.less$/,
+      },
+      {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-        ],
-      }
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
-    modules: [
-      path.resolve(__dirname),
-      path.resolve(__dirname, 'node_modules'),
-    ],
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
+    modules: [path.resolve(__dirname), path.resolve(__dirname, "node_modules")],
   },
   devServer: {
     port: 3000,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/templates/index.ejs',
+      template: "src/templates/index.ejs",
     }),
     new MiniCssExtractPlugin(),
     new DotenvWebpackPlugin(),

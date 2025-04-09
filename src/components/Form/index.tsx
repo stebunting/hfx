@@ -1,27 +1,29 @@
-import React from 'react';
-import DateInput from 'src/components/DateInput';
-import CurrencySelector from 'src/components/CurrencySelector';
-import { Currency } from 'src/typings/api';
+import React from "react";
+import DateInput from "src/components/DateInput";
+import CurrencySelector from "src/components/CurrencySelector";
+import { Currency } from "src/typings/api";
 
-import s from './style.module.less';
-import AmountInput from '../AmountInput';
+import s from "./style.module.less";
+import AmountInput from "../AmountInput";
 
 export interface FormData {
-  startDate: Date | null,
-  endDate: Date | null,
-  currencyFrom: string,
-  currencyTo: string,
-  amount: number,
+  startDate: Date | null;
+  endDate: Date | null;
+  currencyFrom: string;
+  currencyTo: string;
+  amount: number;
 }
 
 interface Props {
-  values: FormData,
-  symbol: string,
-  currencies: Array<Currency>,
-  handleDateChange: (id: 'startDate' | 'endDate', date: Date | null) => void,
-  handleChange: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void,
-  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void,
-  handleCurrencySwap: () => void,
+  values: FormData;
+  symbol: string;
+  currencies: Array<Currency>;
+  handleDateChange: (id: "startDate" | "endDate", date: Date | null) => void;
+  handleChange: (
+    event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
+  ) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  handleCurrencySwap: () => void;
 }
 
 function Form(props: Props): React.ReactElement {
@@ -45,14 +47,14 @@ function Form(props: Props): React.ReactElement {
           name="startDate"
           disabled={disabled}
           value={values.startDate}
-          handleChange={(date) => handleDateChange('startDate', date)}
+          handleChange={(date) => handleDateChange("startDate", date)}
         />
         <DateInput
           label="End Date"
           name="endDate"
           disabled={disabled}
           value={values.endDate}
-          handleChange={(date) => handleDateChange('endDate', date)}
+          handleChange={(date) => handleDateChange("endDate", date)}
         />
         <CurrencySelector
           label="Currency 1"
@@ -75,11 +77,7 @@ function Form(props: Props): React.ReactElement {
           value={values.amount.toString()}
           handleChange={handleChange}
         />
-        <button
-          className={s.button}
-          type="submit"
-          disabled={disabled}
-        >
+        <button className={s.button} type="submit" disabled={disabled}>
           Submit
         </button>
         <button

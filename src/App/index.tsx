@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import RateTable from 'src/components/RateTable';
-import Form, { FormData } from 'src/components/Form';
-import { getCurrencies, getRate } from 'src/lib/api';
-import { Currency, Rate } from 'src/typings/api';
+import React, { useState, useEffect } from "react";
+import RateTable from "src/components/RateTable";
+import Form, { FormData } from "src/components/Form";
+import { getCurrencies, getRate } from "src/lib/api";
+import { Currency, Rate } from "src/typings/api";
 
-import './style.less';
-import s from './style.module.less';
+import "./style.less";
+import s from "./style.module.less";
 
 function App(): React.ReactElement {
   const [fixed, setFixed] = useState({
-    from: '',
-    to: '',
-    symbolFrom: '',
+    from: "",
+    to: "",
+    symbolFrom: "",
   });
 
   const endDate = new Date();
@@ -22,8 +22,8 @@ function App(): React.ReactElement {
   const [form, setForm] = useState({
     startDate,
     endDate,
-    currencyFrom: 'SEK',
-    currencyTo: 'GBP',
+    currencyFrom: "SEK",
+    currencyTo: "GBP",
     amount: 0,
   } as FormData);
 
@@ -36,17 +36,19 @@ function App(): React.ReactElement {
 
   const getSymbol = (code: string) => {
     const c = currencies.find((currency) => currency.code === code);
-    return (c && c.symbol)
-      ? c.symbol.split(',').reduce((a, b) => (
-        a + String.fromCharCode(parseInt(b, 16))
-      ), '')
-      : '';
+    return c && c.symbol
+      ? c.symbol
+          .split(",")
+          .reduce((a, b) => a + String.fromCharCode(parseInt(b, 16)), "")
+      : "";
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
+  ) => {
     const { name, value } = event.currentTarget;
-    if (name === 'amount') {
-      const v = value === '' ? 0 : parseFloat(value);
+    if (name === "amount") {
+      const v = value === "" ? 0 : parseFloat(value);
       if (!Number.isNaN(v)) {
         setForm({ ...form, amount: v });
       }
@@ -63,7 +65,7 @@ function App(): React.ReactElement {
     });
   };
 
-  const handleDateChange = (id: 'startDate' | 'endDate', date: Date | null) => {
+  const handleDateChange = (id: "startDate" | "endDate", date: Date | null) => {
     setForm({ ...form, [id]: date });
   };
 
@@ -80,16 +82,22 @@ function App(): React.ReactElement {
       to: form.currencyTo,
       symbolFrom: getSymbol(form.currencyFrom),
     });
-    for (let d = new Date(form.startDate); d <= form.endDate; d.setDate(d.getDate() + 1)) {
+    for (
+      let d = new Date(form.startDate);
+      d <= form.endDate;
+      d.setDate(d.getDate() + 1)
+    ) {
       getRate(d, form.currencyFrom, form.currencyTo)
         .then((rate) => {
           if (rate != null) {
-            setRates((prevRates) => (
-              [...prevRates, rate].sort((a, b) => (
-                a.date.valueOf() - b.date.valueOf()
-              ))));
+            setRates((prevRates) =>
+              [...prevRates, rate].sort(
+                (a, b) => a.date.valueOf() - b.date.valueOf(),
+              ),
+            );
           }
-        }).catch(() => {
+        })
+        .catch(() => {
           // HANDLE ERROR
         });
     }
