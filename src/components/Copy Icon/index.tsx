@@ -1,7 +1,6 @@
 import React from 'react';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import CopyToClipboard from 'react-copy-to-clipboard';
 
 import s from './style.module.less';
 
@@ -11,19 +10,18 @@ interface Props {
 
 function CopyIcon(props: Props): React.ReactElement {
   const { text } = props;
+  console.log(text);
 
   return (
-    <CopyToClipboard text={text}>
-      <button
-        className={s.icon}
-        type="button"
-        aria-label="Copy"
-      >
-        <FontAwesomeIcon
-          icon={faCopy}
-        />
-      </button>
-    </CopyToClipboard>
+    <button
+      className={s.icon}
+      type="button"
+      aria-label="Copy"
+    >
+      <FontAwesomeIcon
+        icon={faCopy}
+      />
+    </button>
   );
 }
 
