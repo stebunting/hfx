@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      API_PATH: https://hfx-api.onrender.com
+      API_PATH: https://api.pi.stevebunting.com/hfx
 
     steps:
       - name: Checkout Repository
@@ -30,7 +30,9 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: |
+          npm run build
+          rm dist/*.LICENSE.txt
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
@@ -48,6 +50,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write
+
     steps:
       - name: Download Build Artifacts
         uses: actions/download-artifact@v4
@@ -55,11 +60,11 @@ jobs:
           name: build-artifacts
           path: dist
 
-      - name: Deploy
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          server: stevebunting.com
-          username: hfx-github-actions
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          local_path: ./dist/
-          remote_path: /subdomains/hfx/httpdocs/
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to AWS S3
+        run: aws s3 sync ./dist s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
