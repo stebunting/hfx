@@ -1,10 +1,15 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const DotenvWebpackPlugin = require("dotenv-webpack");
-require("dotenv").config();
+import path from "path";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import DotenvWebpackPlugin from "dotenv-webpack";
+import { Configuration as WebpackConfiguration } from "webpack";
+import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
 
-module.exports = {
+interface Configuration extends WebpackConfiguration {
+  devServer?: WebpackDevServerConfiguration;
+}
+
+const config = (): Configuration => ({
   entry: "./src/index.tsx",
   module: {
     rules: [
@@ -52,6 +57,11 @@ module.exports = {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     modules: [path.resolve(__dirname), path.resolve(__dirname, "node_modules")],
   },
+  output: {
+    publicPath: "/",
+    filename: "[contenthash].js",
+    path: path.resolve(__dirname, "dist"),
+  },
   devServer: {
     port: 3000,
   },
@@ -59,7 +69,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "src/templates/index.ejs",
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "[contenthash].css",
+    }),
     new DotenvWebpackPlugin(),
   ],
-};
+});
+
+export default config;

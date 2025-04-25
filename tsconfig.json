@@ -15,5 +15,11 @@
       "src/*": ["src/*"]
     }
   },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS",
+      "esModuleInterop": true
+    }
+  },
   "include": ["src/**/*"]
 }
