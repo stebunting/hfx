@@ -6,6 +6,7 @@ import { Currency, Rate } from "src/typings/api";
 
 import "./style.less";
 import s from "./style.module.less";
+import { getStorage, setStorage } from "src/lib/persistence";
 
 function App(): React.ReactElement {
   const [fixed, setFixed] = useState({
@@ -19,13 +20,14 @@ function App(): React.ReactElement {
   endDate.setDate(endDate.getDate() - 1);
   startDate.setDate(endDate.getDate() - 30);
 
+  const defaultLocale = "sv-SE";
   const [form, setForm] = useState({
     startDate,
     endDate,
     currencyFrom: "SEK",
     currencyTo: "GBP",
     amount: 0,
-    locale: "sv-SE",
+    locale: getStorage() || defaultLocale,
   } as FormData);
 
   const [rates, setRates] = useState([] as Array<Rate>);
@@ -55,6 +57,10 @@ function App(): React.ReactElement {
       }
     } else {
       setForm({ ...form, [name]: value });
+
+      if (name === "locale") {
+        setStorage(value);
+      }
     }
   };
 
