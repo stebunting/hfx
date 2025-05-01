@@ -1,5 +1,5 @@
 import React from "react";
-import { Currency } from "src/typings/api";
+import { Currency } from "~/typings/api";
 
 import s from "./style.module.less";
 

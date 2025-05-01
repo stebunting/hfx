@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import RateTable from "src/components/RateTable";
-import Form, { FormData } from "src/components/Form";
-import { getCurrencies, getRate } from "src/lib/api";
-import { Currency, Rate } from "src/typings/api";
+import RateTable from "~/components/RateTable";
+import Form, { FormData } from "~/components/Form";
+import { getCurrencies, getRate } from "~/lib/api";
+import { Currency, Rate } from "~/typings/api";
+import { getStorage, setStorage } from "~/lib/persistence";
 
 import "./style.less";
 import s from "./style.module.less";
-import { getStorage, setStorage } from "src/lib/persistence";
 
 function App(): React.ReactElement {
   const [fixed, setFixed] = useState({

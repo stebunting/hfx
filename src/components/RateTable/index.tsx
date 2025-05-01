@@ -1,9 +1,9 @@
 import React from "react";
-import { formatCurrency, formatDate, formatExchangeRate } from "src/lib/format";
-import { Rate } from "src/typings/api";
+import { formatCurrency, formatDate, formatExchangeRate } from "~/lib/format";
+import { Rate } from "~/typings/api";
+import CopyIcon from "~/components/Copy Icon";
 
 import s from "./style.module.less";
-import CopyIcon from "../Copy Icon";
 
 interface Props {
   rates: Array<Rate>;

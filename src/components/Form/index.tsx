@@ -1,11 +1,11 @@
 import React from "react";
-import DateInput from "src/components/DateInput";
-import CurrencySelector from "src/components/CurrencySelector";
-import { Currency } from "src/typings/api";
+import DateInput from "~/components/DateInput";
+import CurrencySelector from "~/components/CurrencySelector";
+import AmountInput from "~/components/AmountInput";
+import LocaleSelector from "~/components/LocaleSelector";
+import { Currency } from "~/typings/api";
 
 import s from "./style.module.less";
-import AmountInput from "../AmountInput";
-import LocaleSelector from "../LocaleSelector";
 
 export interface FormData {
   startDate: Date | null;

@@ -56,6 +56,9 @@ const config = (): Configuration => ({
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     modules: [path.resolve(__dirname), path.resolve(__dirname, "node_modules")],
+    alias: {
+      "~": path.resolve(__dirname, "src"),
+    },
   },
   output: {
     publicPath: "/",
