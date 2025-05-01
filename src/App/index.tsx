@@ -18,7 +18,7 @@ function App(): React.ReactElement {
   const endDate = new Date();
   const startDate = new Date();
   endDate.setDate(endDate.getDate() - 1);
-  startDate.setDate(endDate.getDate() - 30);
+  startDate.setDate(startDate.getDate() - 29);
 
   const defaultLocale = "sv-SE";
   const [form, setForm] = useState({
