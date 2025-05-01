@@ -1,8 +1,6 @@
 declare namespace StyleModuleLessNamespace {
   export interface IStyleModuleLess {
-    button: string;
-    buttons: string;
-    form: string;
+    localeSelector: string;
   }
 }
 

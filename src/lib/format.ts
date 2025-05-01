@@ -1,5 +1,3 @@
-const locale = "sv-SE";
-
 export function formatDate(d: Date): string {
   const year = d.getFullYear();
   const month = (d.getMonth() + 1).toString().padStart(2, "0");
@@ -7,7 +5,11 @@ export function formatDate(d: Date): string {
   return `${year}-${month}-${date}`;
 }
 
-export function formatExchangeRate(n: number, precision?: number): string {
+export function formatExchangeRate(
+  locale: string,
+  n: number,
+  precision?: number,
+): string {
   return new Intl.NumberFormat(locale, {
     style: "decimal",
     maximumFractionDigits: precision ?? 20,
@@ -15,7 +17,11 @@ export function formatExchangeRate(n: number, precision?: number): string {
   }).format(n);
 }
 
-export function formatCurrency(n: number, code: string): string {
+export function formatCurrency(
+  locale: string,
+  n: number,
+  code: string,
+): string {
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency: code,

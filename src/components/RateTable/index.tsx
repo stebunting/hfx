@@ -11,10 +11,11 @@ interface Props {
   to: string;
   amount: number;
   fromSymbol: string;
+  locale: string;
 }
 
 function RateTable(props: Props): React.ReactElement {
-  const { rates, from, to, amount, fromSymbol } = props;
+  const { rates, from, to, amount, fromSymbol, locale } = props;
 
   return (
     <div className={s.rateTableContainer}>
@@ -39,18 +40,18 @@ function RateTable(props: Props): React.ReactElement {
           {rates.map((r) => {
             const { date, rate } = r;
             const invRate = 1 / rate;
-            const conversion = formatCurrency(rate * amount, to);
+            const conversion = formatCurrency(locale, rate * amount, to);
 
             return (
               <tr key={date.toString()}>
                 <td className={s.cell}>{formatDate(new Date(date))}</td>
                 <td className={s.cell}>
-                  {formatExchangeRate(rate, 6)}
-                  <CopyIcon text={formatExchangeRate(rate)} />
+                  {formatExchangeRate(locale, rate, 6)}
+                  <CopyIcon text={formatExchangeRate(locale, rate)} />
                 </td>
                 <td className={s.cell}>
-                  {formatExchangeRate(invRate, 6)}
-                  <CopyIcon text={formatExchangeRate(invRate)} />
+                  {formatExchangeRate(locale, invRate, 6)}
+                  <CopyIcon text={formatExchangeRate(locale, invRate)} />
                 </td>
                 <td className={s.cell}>
                   {conversion}

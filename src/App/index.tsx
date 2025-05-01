@@ -25,6 +25,7 @@ function App(): React.ReactElement {
     currencyFrom: "SEK",
     currencyTo: "GBP",
     amount: 0,
+    locale: "sv-SE",
   } as FormData);
 
   const [rates, setRates] = useState([] as Array<Rate>);
@@ -109,6 +110,7 @@ function App(): React.ReactElement {
         values={form}
         symbol={getSymbol(form.currencyFrom)}
         currencies={currencies}
+        locale={form.locale}
         handleDateChange={handleDateChange}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
@@ -120,6 +122,7 @@ function App(): React.ReactElement {
         to={fixed.to}
         amount={form.amount}
         fromSymbol={fixed.symbolFrom}
+        locale={form.locale}
       />
     </div>
   );

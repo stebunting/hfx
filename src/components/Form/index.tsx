@@ -5,6 +5,7 @@ import { Currency } from "src/typings/api";
 
 import s from "./style.module.less";
 import AmountInput from "../AmountInput";
+import LocaleSelector from "../LocaleSelector";
 
 export interface FormData {
   startDate: Date | null;
@@ -12,12 +13,14 @@ export interface FormData {
   currencyFrom: string;
   currencyTo: string;
   amount: number;
+  locale: string;
 }
 
 interface Props {
   values: FormData;
   symbol: string;
   currencies: Array<Currency>;
+  locale: string;
   handleDateChange: (id: "startDate" | "endDate", date: Date | null) => void;
   handleChange: (
     event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
@@ -77,17 +80,20 @@ function Form(props: Props): React.ReactElement {
           value={values.amount.toString()}
           handleChange={handleChange}
         />
-        <button className={s.button} type="submit" disabled={disabled}>
-          Submit
-        </button>
-        <button
-          className={s.button}
-          type="button"
-          disabled={disabled}
-          onClick={handleCurrencySwap}
-        >
-          Reverse
-        </button>
+        <div className={s.buttons}>
+          <button className={s.button} type="submit" disabled={disabled}>
+            Submit
+          </button>
+          <button
+            className={s.button}
+            type="button"
+            disabled={disabled}
+            onClick={handleCurrencySwap}
+          >
+            Reverse
+          </button>
+        </div>
+        <LocaleSelector value={props.locale} handleChange={handleChange} />
       </form>
     </div>
   );
