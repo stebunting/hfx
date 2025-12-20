@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      API_PATH: https://api.pi.stevebunting.com/hfx
+      API_PATH: https://api.pi.stevebunting.dev/hfx
 
     steps:
       - name: Checkout Repository
